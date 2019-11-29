@@ -9,7 +9,7 @@
     }
   },
   "scripts": {
-    "build": "ng-packagr -p lib/package.json && cp README.md dist && cp LICENSE dist",
+    "build:lib": "ng-packagr -p lib/package.json && cp README.md dist && cd dist/sample-lib && npm pack",
     "ios": "tns run ios --syncAllFiles"
   },
   "description": "NativeScript Application",
