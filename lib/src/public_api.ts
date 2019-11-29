@@ -1,1 +1,1 @@
-export * from "./components/carousel/carousel.module";
+export * from './components/carousel/index';
