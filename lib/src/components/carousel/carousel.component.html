@@ -1,0 +1,40 @@
+<AbsoluteLayout class="carousel-wrapper">
+  <StackLayout
+    width="100%"
+    #container>
+    <GridLayout
+      rows="auto, auto"
+      columns="*"
+      class="carousel"
+      height="180">
+      <StackLayout [ngClass]="{'deselected': !isSelected('profile') }">
+        <AbsoluteLayout>
+          <StackLayout
+            orientation="horizontal"
+            [translateX]="defaultX"
+            hight="180"
+            (pan)="onPanEvent($event, personsContainer)"
+            #personsContainer>
+            <StackLayout
+              shadow
+              [elevation]="7"
+              shadowOffset="0"
+              class="carousel-card-wrapper"
+              *ngFor="let content of carouselContent; index as i;">
+              <StackLayout
+                [width]="340"
+                [height]="180">
+                <ng-container *ngComponentOutlet="content.component; injector:content.dataProvider"></ng-container>
+              </StackLayout>
+            </StackLayout>
+          </StackLayout>
+        </AbsoluteLayout>
+      </StackLayout>
+      <StackLayout
+        rowSpan="2"
+        *ngIf="currentDetailType !== 'profile'"
+        class="unselected-overlay">
+      </StackLayout>
+    </GridLayout>
+  </StackLayout>
+</AbsoluteLayout>

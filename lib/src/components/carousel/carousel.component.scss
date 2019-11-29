@@ -1,0 +1,76 @@
+.carousel-wrapper {
+  height: 100%;
+}
+
+.carousel {
+  width: 100%;
+  height: 100%;
+}
+
+.selector-container {
+  height: 100%;
+  width: 100%;
+  border-width: 1;
+  vertical-align: top;
+}
+
+.selector-container .selector {
+  width: 100%;
+  height: 180;
+}
+
+.carousel-card-wrapper {
+  width: 360;
+}
+
+.unselected-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.8) 3%,
+    rgba(255, 255, 255, 0.73) 50%,
+    rgba(255, 255, 255, 0.6) 99%,
+    rgba(255, 255, 255, 0.6) 100%
+  );
+} // animation
+.deselected {
+  animation-duration: 0.3;
+  animation-timing-function: ease;
+  animation-name: reduce;
+  transform: scale(0.8, 0.8);
+}
+
+.selected {
+  animation-duration: 0.3;
+  animation-timing-function: ease;
+  animation-name: enlarge;
+}
+
+@keyframes enlarge {
+  from {
+    transform: scale(0.8, 0.8);
+  }
+  to {
+    transform: scale(1, 1);
+  }
+}
+
+@keyframes reduce {
+  from {
+    transform: scale(1, 1);
+  }
+  to {
+    transform: scale(0.8, 0.8);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
