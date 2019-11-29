@@ -1,0 +1,19 @@
+{
+  "name": "sample-lib",
+  "version": "1.0.0",
+  "repository": "https://github.com/MadKimchi/sample-nativescript-ngx-lib.git",
+  "author": "Min Kim <minkim.dev@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "peerDependencies": {
+    "@angular/core": "~8.2.0",
+    "@angular/common": "~8.2.0"
+  },
+  "ngPackage": {
+    "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
+    "lib": {
+      "entryFile": "src/public_api.ts"
+    },
+    "dest": "../dist/my-lib"
+  }
+}
