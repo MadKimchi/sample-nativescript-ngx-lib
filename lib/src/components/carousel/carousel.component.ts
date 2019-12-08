@@ -4,6 +4,7 @@ import {
     PanGestureEventData,
     GestureStateTypes
 } from 'tns-core-modules/ui/gestures/gestures';
+import { screen } from 'tns-core-modules/platform';
 import { ICarouselContent } from './interfaces';
 
 @Component({
@@ -14,12 +15,19 @@ import { ICarouselContent } from './interfaces';
 })
 export class CarouselComponent implements OnInit {
     @Input() public carouselContent: ICarouselContent[];
+    @Input() public countPerScreen: number = 3;
+    @Input() public gutter: number;
 
-    currentDetailType: string = 'profile';
-    prevDeltaX: number = 0;
-    defaultX: number = 0;
-    selectedIndex: number;
-    origin: number = 0;
+    public prevDeltaX: number = 0;
+    public defaultX: number = 0;
+    public selectedIndex: number;
+    public origin: number = 0;
+    public screenWidth: number = screen.mainScreen.widthDIPs;
+    public carouselWidth: number;
+
+    constructor() {
+        this.carouselWidth = this.screenWidth / this.countPerScreen;
+    }
 
     public ngOnInit(): void {
         this.defaultX = 0;
@@ -36,7 +44,7 @@ export class CarouselComponent implements OnInit {
                 break;
             case GestureStateTypes.ended:
                 const originX = this.getOrigin(args.deltaX, container);
-                const currentIndex = Math.abs(originX / 360);
+                const currentIndex = Math.abs(originX / this.carouselWidth);
                 container.animate({
                     translate: { x: originX, y: 0 },
                     duration: 200
@@ -54,8 +62,10 @@ export class CarouselComponent implements OnInit {
     public setActiveItem(index: number, container: StackLayout): void {
         // TODO: double tap bug should be fixed
         if (index !== this.selectedIndex) {
-            const originX = this.getOrigin(-index * 360, container);
-
+            const originX = this.getOrigin(
+                -index * this.carouselWidth,
+                container
+            );
             container.animate({
                 translate: { x: originX, y: 0 },
                 duration: 200
@@ -67,17 +77,22 @@ export class CarouselComponent implements OnInit {
         }
     }
 
-    public isSelected(name): boolean {
-        return this.currentDetailType === name;
-    }
-
     private getOrigin(deltaX: number, container: StackLayout): number {
         if (deltaX >= 0) {
-            return this.origin != 0 ? this.origin + 360 : 0;
+            return this.origin != 0 ? this.origin + this.carouselWidth : 0;
         } else {
             const itemLength = container.getChildrenCount();
-            const isLastItem = this.origin! < -(360 * (itemLength - 2)); // this actually should calculate the screen width
-            return isLastItem ? -(360 * (itemLength - 1)) : this.origin - 360; // this actually should calculate the screen width
+            const isLastItem =
+                this.origin! <
+                -(
+                    this.carouselWidth *
+                    (itemLength - (this.countPerScreen + 1))
+                );
+
+            console.log(isLastItem);
+            return isLastItem
+                ? -(this.carouselWidth * (itemLength - this.countPerScreen))
+                : this.origin - this.carouselWidth;
         }
     }
 }

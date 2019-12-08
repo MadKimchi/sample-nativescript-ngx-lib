@@ -1,18 +1,17 @@
 <AbsoluteLayout class="carousel-wrapper">
   <StackLayout
     width="100%"
+    height="100%"
     #container>
     <GridLayout
       rows="auto, auto"
       columns="*"
-      class="carousel"
-      height="180">
-      <StackLayout [ngClass]="{'deselected': !isSelected('profile') }">
+      class="carousel">
+      <StackLayout>
         <AbsoluteLayout>
           <StackLayout
             orientation="horizontal"
             [translateX]="defaultX"
-            hight="180"
             (pan)="onPanEvent($event, personsContainer)"
             #personsContainer>
             <StackLayout
@@ -22,18 +21,14 @@
               class="carousel-card-wrapper"
               *ngFor="let content of carouselContent; index as i;">
               <StackLayout
-                [width]="340"
+                class="border-class"
+                [width]="carouselWidth"
                 [height]="180">
                 <ng-container *ngComponentOutlet="content.component; injector:content.dataProvider"></ng-container>
               </StackLayout>
             </StackLayout>
           </StackLayout>
         </AbsoluteLayout>
-      </StackLayout>
-      <StackLayout
-        rowSpan="2"
-        *ngIf="currentDetailType !== 'profile'"
-        class="unselected-overlay">
       </StackLayout>
     </GridLayout>
   </StackLayout>
