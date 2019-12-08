@@ -2,6 +2,16 @@
     <Label text="Home"></Label>
 </ActionBar>
 
-<GridLayout>
-    <!-- Add your page content here -->
-</GridLayout>
+<ScrollView scrollBarIndicatorVisible="false">
+    <FlexboxLayout
+        flexDirection="column"
+        iosOverflowSafeArea="false"
+        alignContent="space-around">
+        <StackLayout
+            iosOverflowSafeArea="false"
+            class="dashboard-section">
+            <Label text="Carousels"></Label>
+            <Carousel [carouselContent]="carouselContentItems"></Carousel>
+        </StackLayout>
+    </FlexboxLayout>
+</ScrollView>

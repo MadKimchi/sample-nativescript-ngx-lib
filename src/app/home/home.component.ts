@@ -1,13 +1,38 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Injector } from '@angular/core';
+import { ICarouselContent } from 'sample-lib';
+import { ExampleCarouselContentComponent } from '~/app/home/components/example-carousel-content/example-carousel-content.component';
 
 @Component({
-    selector: "Home",
-    templateUrl: "./home.component.html"
+    selector: 'Home',
+    templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
+    public carouselContentItems: Array<ICarouselContent> = [
+        {
+            component: ExampleCarouselContentComponent
+        },
+        {
+            component: ExampleCarouselContentComponent
+        },
+        {
+            component: ExampleCarouselContentComponent
+        },
+        {
+            component: ExampleCarouselContentComponent
+        },
+        {
+            component: ExampleCarouselContentComponent
+        },
+        {
+            component: ExampleCarouselContentComponent
+        },
+        {
+            component: ExampleCarouselContentComponent
+        }
+    ];
 
-    constructor() {
-        // Use the component constructor to inject providers.
+    constructor(public injector: Injector) {
+        // Use the constructor to inject services.
     }
 
     ngOnInit(): void {
