@@ -76,8 +76,8 @@ export class CarouselComponent implements OnInit {
             return this.origin != 0 ? this.origin + 360 : 0;
         } else {
             const itemLength = container.getChildrenCount();
-            const isLastItem = this.origin! < -(360 * (itemLength - 3));
-            return isLastItem ? -(360 * (itemLength - 2)) : this.origin - 360;
+            const isLastItem = this.origin! < -(360 * (itemLength - 2)); // this actually should calculate the screen width
+            return isLastItem ? -(360 * (itemLength - 1)) : this.origin - 360; // this actually should calculate the screen width
         }
     }
 }
