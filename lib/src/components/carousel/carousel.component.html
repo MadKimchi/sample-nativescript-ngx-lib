@@ -6,10 +6,11 @@
     <GridLayout
       rows="auto, auto"
       columns="*"
-      class="carousel">
+      class="carousel-container">
       <StackLayout>
         <AbsoluteLayout>
           <StackLayout
+            class="carouse"
             orientation="horizontal"
             [translateX]="defaultX"
             (pan)="onPanEvent($event, personsContainer)"
@@ -19,9 +20,10 @@
               [elevation]="7"
               shadowOffset="0"
               class="carousel-card-wrapper"
-              *ngFor="let content of carouselContent; index as i;">
+              *ngFor="let content of carouselContent; index as i; last as isLast">
               <StackLayout
                 class="border-class"
+                [ngStyle]="{'paddingRight': isLast ? 0 : halfGutter}"
                 [width]="carouselWidth"
                 [height]="180">
                 <ng-container *ngComponentOutlet="content.component; injector:content.dataProvider"></ng-container>
@@ -33,3 +35,46 @@
     </GridLayout>
   </StackLayout>
 </AbsoluteLayout>
+
+
+<!-- <AbsoluteLayout class="carousel-container">
+  <StackLayout
+    width="100%"
+    height="100%"
+    #container
+  >
+    <GridLayout
+      rows="auto, auto"
+      columns="*"
+      [paddingLeft]="halfGutter"
+      [paddingRight]="halfGutter"
+      class="carousel-wrapper"
+    >
+      <StackLayout>
+        <AbsoluteLayout>
+          <StackLayout
+            orientation="horizontal"
+            [translateX]="defaultX"
+            (pan)="onPanEvent($event, personsContainer)"
+            #personsContainer
+          >
+            <StackLayout
+              class="carousel-card-wrapper"
+              *ngFor="let content of carouselContent; index as i;"
+            >
+              <StackLayout
+                class="carousel-card"
+                [paddingLeft]="halfGutter"
+                [paddingRight]="halfGutter"
+                [width]="carouselWidth"
+                [height]="180"
+              >
+                <ng-container *ngComponentOutlet="content.component; injector:content.dataProvider"></ng-container>
+              </StackLayout>
+            </StackLayout>
+          </StackLayout>
+        </AbsoluteLayout>
+      </StackLayout>
+    </GridLayout>
+  </StackLayout>
+</AbsoluteLayout> -->

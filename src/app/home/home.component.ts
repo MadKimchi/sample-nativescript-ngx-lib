@@ -4,9 +4,11 @@ import { ExampleCarouselContentComponent } from '~/app/home/components/example-c
 
 @Component({
     selector: 'Home',
-    templateUrl: './home.component.html'
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+    public perScreen: number = 4;
     public carouselContentItems: Array<ICarouselContent> = [
         {
             component: ExampleCarouselContentComponent

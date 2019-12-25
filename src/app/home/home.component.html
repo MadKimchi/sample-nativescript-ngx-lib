@@ -4,20 +4,34 @@
 
 <ScrollView scrollBarIndicatorVisible="false">
     <FlexboxLayout
+        class="home-screen-container"
         flexDirection="column"
-        iosOverflowSafeArea="false"
-        alignContent="space-around">
+        iosOverflowSafeArea="false">
         <StackLayout
             iosOverflowSafeArea="false"
             class="dashboard-section">
-            <Label text="Carousels"></Label>
-            <Carousel [carouselContent]="carouselContentItems"></Carousel>
+            <Label text="1 Carousel per screen"></Label>
+            <Carousel
+                class="carousel-list"
+                [carouselContent]="carouselContentItems">
+            </Carousel>
         </StackLayout>
-            <StackLayout
+        <StackLayout
             iosOverflowSafeArea="false"
             class="dashboard-section">
-            <Label text="Carousels"></Label>
-            <Carousel [carouselContent]="carouselContentItems"></Carousel>
+            <Label text="2 Carousels per screen"></Label>
+            <Carousel
+                [gutter]="10"
+                [carouselContent]="carouselContentItems">
+            </Carousel>
+        </StackLayout>
+        <StackLayout
+            iosOverflowSafeArea="false"
+            class="dashboard-section">
+            <Label text="3 Carousels per screen"></Label>
+            <Carousel
+                [carouselContent]="carouselContentItems">
+            </Carousel>
         </StackLayout>
     </FlexboxLayout>
 </ScrollView>

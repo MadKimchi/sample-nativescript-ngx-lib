@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build:lib": "ng-packagr -p lib/package.json && cp README.md dist && cd dist/sample-lib && npm pack",
-    "ios": "tns run ios --emulator"
+    "ios": "tns run ios --bundle"
   },
   "description": "NativeScript Application",
   "repository": "<fill-your-repository-here>",

@@ -15,22 +15,26 @@ import { ICarouselContent } from './interfaces';
 })
 export class CarouselComponent implements OnInit {
     @Input() public carouselContent: ICarouselContent[];
-    @Input() public countPerScreen: number = 3;
-    @Input() public gutter: number;
+    @Input() public countPerScreen: number = 2;
+    @Input() public gutter: number = 10;
+    @Input() public offset: number = 10;
 
     public prevDeltaX: number = 0;
     public defaultX: number = 0;
-    public selectedIndex: number;
+    public selectedIndex: number = 0;
     public origin: number = 0;
     public screenWidth: number = screen.mainScreen.widthDIPs;
     public carouselWidth: number;
 
-    constructor() {
-        this.carouselWidth = this.screenWidth / this.countPerScreen;
+    public get halfGutter(): number {
+        return this.gutter / 2;
     }
 
+    constructor() {}
+
     public ngOnInit(): void {
-        this.defaultX = 0;
+        this.carouselWidth = this.screenWidth / this.countPerScreen;
+        this.defaultX = this.gutter;
     }
 
     public onPanEvent(args: PanGestureEventData, container: StackLayout): void {
@@ -44,15 +48,15 @@ export class CarouselComponent implements OnInit {
                 break;
             case GestureStateTypes.ended:
                 const originX = this.getOrigin(args.deltaX, container);
-                const currentIndex = Math.abs(originX / this.carouselWidth);
+                // const currentIndex = Math.abs(originX / this.carouselWidth);
                 container.animate({
-                    translate: { x: originX, y: 0 },
+                    translate: { x: originX + this.offset, y: 0 },
                     duration: 200
                 });
 
                 this.origin = originX;
                 this.prevDeltaX = 0;
-                this.selectedIndex = currentIndex;
+                // this.selectedIndex = currentIndex;
                 break;
             default:
                 break;
@@ -78,21 +82,31 @@ export class CarouselComponent implements OnInit {
     }
 
     private getOrigin(deltaX: number, container: StackLayout): number {
-        if (deltaX >= 0) {
-            return this.origin != 0 ? this.origin + this.carouselWidth : 0;
-        } else {
-            const itemLength = container.getChildrenCount();
-            const isLastItem =
-                this.origin! <
-                -(
-                    this.carouselWidth *
-                    (itemLength - (this.countPerScreen + 1))
-                );
+        const lastIndex = container.getChildrenCount() - 1;
 
-            console.log(isLastItem);
-            return isLastItem
-                ? -(this.carouselWidth * (itemLength - this.countPerScreen))
-                : this.origin - this.carouselWidth;
+        if (deltaX >= 0) {
+            // swiped left
+            if (this.selectedIndex > 0) {
+                this.selectedIndex -= 1;
+                const newCarouselX = this.selectedIndex * this.carouselWidth;
+                return -newCarouselX;
+            }
+
+            return 0;
+            // return this.origin != 0 ? this.origin + this.carouselWidth : 0;
+        } else {
+            // swiped right
+            if (this.selectedIndex < lastIndex - 1) {
+                this.selectedIndex += 1;
+                const newCarouselX = this.selectedIndex * this.carouselWidth;
+                return -newCarouselX;
+            } else {
+                return -(
+                    (lastIndex - 1) * this.carouselWidth +
+                    this.gutter +
+                    this.offset
+                );
+            }
         }
     }
 }
