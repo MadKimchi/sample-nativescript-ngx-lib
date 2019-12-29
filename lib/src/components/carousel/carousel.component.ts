@@ -84,54 +84,56 @@ export class CarouselComponent implements OnInit {
 
     private getOrigin(deltaX: number, container: StackLayout): number {
         const lastIndex = container.getChildrenCount() - 1;
+        return deltaX >= 0 ? this.onPanLeft() : this.onPanRight(lastIndex);
+    }
 
-        if (deltaX >= 0) {
-            // swiped left
-            if (this.selectedIndex > 0) {
-                this.selectedIndex -= 1;
-                const newCarouselX = this.selectedIndex * this.carouselWidth;
-                return -newCarouselX;
-            }
-
-            return 0;
-        } else {
-            console.log(this.selectedIndex);
-            if (this.countPerScreen === 1) {
-                if (this.selectedIndex >= lastIndex - 1) {
-                    const newCarouselX = lastIndex * this.carouselWidth;
-
-                    if (this.selectedIndex <= lastIndex - 1) {
-                        this.selectedIndex += 1;
-                    }
-                    return -newCarouselX;
-                }
-            } else if (this.countPerScreen === 2) {
-                if (this.selectedIndex >= lastIndex - 2) {
-                    const newCarouselX =
-                        (lastIndex - 1) * this.carouselWidth -
-                        this.gutter -
-                        this.halfGutter;
-
-                    if (this.selectedIndex <= lastIndex - 2) {
-                        this.selectedIndex += 1;
-                    }
-                    return -newCarouselX;
-                }
-            } else if (this.countPerScreen === 3) {
-                if (this.selectedIndex >= lastIndex - 3) {
-                    const newCarouselX =
-                        (lastIndex - 2) * this.carouselWidth - this.gutter * 3;
-
-                    if (this.selectedIndex <= lastIndex - 3) {
-                        this.selectedIndex += 1;
-                    }
-                    return -newCarouselX;
-                }
-            }
-
-            this.selectedIndex += 1;
+    private onPanLeft(): number {
+        if (this.selectedIndex > 0) {
+            this.selectedIndex -= 1;
             const newCarouselX = this.selectedIndex * this.carouselWidth;
             return -newCarouselX;
         }
+
+        return 0;
+    }
+
+    // TODO: Refactor this better for the
+    private onPanRight(lastIndex: number): number {
+        if (this.countPerScreen === 1) {
+            if (this.selectedIndex >= lastIndex - 1) {
+                const newCarouselX = lastIndex * this.carouselWidth;
+
+                if (this.selectedIndex <= lastIndex - 1) {
+                    this.selectedIndex += 1;
+                }
+                return -newCarouselX;
+            }
+        } else if (this.countPerScreen === 2) {
+            if (this.selectedIndex >= lastIndex - 2) {
+                const newCarouselX =
+                    (lastIndex - 1) * this.carouselWidth -
+                    this.gutter -
+                    this.halfGutter;
+
+                if (this.selectedIndex <= lastIndex - 2) {
+                    this.selectedIndex += 1;
+                }
+                return -newCarouselX;
+            }
+        } else if (this.countPerScreen === 3) {
+            if (this.selectedIndex >= lastIndex - 3) {
+                const newCarouselX =
+                    (lastIndex - 2) * this.carouselWidth - this.gutter * 3;
+
+                if (this.selectedIndex <= lastIndex - 3) {
+                    this.selectedIndex += 1;
+                }
+                return -newCarouselX;
+            }
+        }
+
+        this.selectedIndex += 1;
+        const newCarouselX = this.selectedIndex * this.carouselWidth;
+        return -newCarouselX;
     }
 }
