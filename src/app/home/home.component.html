@@ -13,6 +13,7 @@
             <Label text="1 Carousel per screen"></Label>
             <Carousel
                 class="carousel-list"
+                [countPerScreen]="1"
                 [carouselContent]="carouselContentItems">
             </Carousel>
         </StackLayout>
@@ -30,6 +31,7 @@
             class="dashboard-section">
             <Label text="3 Carousels per screen"></Label>
             <Carousel
+                [countPerScreen]="3"
                 [carouselContent]="carouselContentItems">
             </Carousel>
         </StackLayout>

@@ -23,7 +23,7 @@
               *ngFor="let content of carouselContent; index as i; last as isLast">
               <StackLayout
                 class="border-class"
-                [ngStyle]="{'paddingRight': isLast ? 0 : halfGutter}"
+                [ngStyle]="{'paddingRight': halfGutter}"
                 [width]="carouselWidth"
                 [height]="180">
                 <ng-container *ngComponentOutlet="content.component; injector:content.dataProvider"></ng-container>

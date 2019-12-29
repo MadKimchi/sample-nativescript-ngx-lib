@@ -33,7 +33,10 @@ export class CarouselComponent implements OnInit {
     constructor() {}
 
     public ngOnInit(): void {
-        this.carouselWidth = this.screenWidth / this.countPerScreen;
+        this.carouselWidth =
+            this.screenWidth / this.countPerScreen -
+            this.gutter -
+            this.offset / 2;
         this.defaultX = this.gutter;
     }
 
@@ -48,7 +51,6 @@ export class CarouselComponent implements OnInit {
                 break;
             case GestureStateTypes.ended:
                 const originX = this.getOrigin(args.deltaX, container);
-                // const currentIndex = Math.abs(originX / this.carouselWidth);
                 container.animate({
                     translate: { x: originX + this.offset, y: 0 },
                     duration: 200
@@ -56,7 +58,6 @@ export class CarouselComponent implements OnInit {
 
                 this.origin = originX;
                 this.prevDeltaX = 0;
-                // this.selectedIndex = currentIndex;
                 break;
             default:
                 break;
@@ -93,20 +94,44 @@ export class CarouselComponent implements OnInit {
             }
 
             return 0;
-            // return this.origin != 0 ? this.origin + this.carouselWidth : 0;
         } else {
-            // swiped right
-            if (this.selectedIndex < lastIndex - 1) {
-                this.selectedIndex += 1;
-                const newCarouselX = this.selectedIndex * this.carouselWidth;
-                return -newCarouselX;
-            } else {
-                return -(
-                    (lastIndex - 1) * this.carouselWidth +
-                    this.gutter +
-                    this.offset
-                );
+            console.log(this.selectedIndex);
+            if (this.countPerScreen === 1) {
+                if (this.selectedIndex >= lastIndex - 1) {
+                    const newCarouselX = lastIndex * this.carouselWidth;
+
+                    if (this.selectedIndex <= lastIndex - 1) {
+                        this.selectedIndex += 1;
+                    }
+                    return -newCarouselX;
+                }
+            } else if (this.countPerScreen === 2) {
+                if (this.selectedIndex >= lastIndex - 2) {
+                    const newCarouselX =
+                        (lastIndex - 1) * this.carouselWidth -
+                        this.gutter -
+                        this.halfGutter;
+
+                    if (this.selectedIndex <= lastIndex - 2) {
+                        this.selectedIndex += 1;
+                    }
+                    return -newCarouselX;
+                }
+            } else if (this.countPerScreen === 3) {
+                if (this.selectedIndex >= lastIndex - 3) {
+                    const newCarouselX =
+                        (lastIndex - 2) * this.carouselWidth - this.gutter * 3;
+
+                    if (this.selectedIndex <= lastIndex - 3) {
+                        this.selectedIndex += 1;
+                    }
+                    return -newCarouselX;
+                }
             }
+
+            this.selectedIndex += 1;
+            const newCarouselX = this.selectedIndex * this.carouselWidth;
+            return -newCarouselX;
         }
     }
 }
