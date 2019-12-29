@@ -24,13 +24,15 @@
     "@angular/platform-browser-dynamic": "~8.2.0",
     "@angular/router": "~8.2.0",
     "@nativescript/theme": "~2.2.0",
+    "@nota/nativescript-webview-ext": "^6.2.1",
     "nativescript-angular": "~8.20.0",
     "ng-packagr": "^5.7.1",
     "reflect-metadata": "~0.1.12",
     "rxjs": "^6.4.0",
+    "sample-lib": "file:./lib/",
     "tns-core-modules": "~6.2.0",
-    "zone.js": "~0.9.1",
-    "sample-lib": "file:./lib/"
+    "tns-platform-declarations": "^6.3.2",
+    "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular/compiler-cli": "~8.2.0",

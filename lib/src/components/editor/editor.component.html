@@ -1,0 +1,69 @@
+<GridLayout
+  #container
+  rows="*,auto"
+  class="container"
+  (loaded)="getSize($event)"
+>
+  <StackLayout row="0">
+    <GridLayout>
+      <WebViewExt
+        (loaded)="webviewLoaded($event)"
+        id="tf1"
+        debugMode="true"
+        viewPortSize="initial-scale=1.2"
+      >
+        </WebViewExt>
+    </GridLayout>
+  </StackLayout>
+  <Button
+    row="2"
+    class="btn"
+    text="Confirmar Entrega"
+  ></Button>
+    <StackLayout row="1">
+      <ScrollView>
+        <AbsoluteLayout orientation="horizontal">
+          <Button
+            textWrap="true"
+            width="25%"
+            height="100px"
+          >
+            <FormattedString>
+              <Span text="&#xf015;\n"></Span>
+              <Span text="Home"></Span>
+            </FormattedString>
+            </Button>
+            <Button
+              textWrap="true"
+              width="25%"
+              height="100px"
+            >
+              <FormattedString>
+                <Span text="&#xf000;\n"></Span>
+                <Span text="All Cocktails"></Span>
+              </FormattedString>
+              </Button>
+              <Button
+                textWrap="true"
+                width="25%"
+                height="100px"
+              >
+                <FormattedString>
+                  <Span text="&#xf005;\n"></Span>
+                  <Span text="Favorite"></Span>
+                </FormattedString>
+                </Button>
+                <Button
+                  textWrap="true"
+                  width="25%"
+                  height="100px"
+                >
+                  <FormattedString>
+                    <Span text="&#xf007;\n"></Span>
+                    <Span text="Profile"></Span>
+                  </FormattedString>
+                  </Button>
+        </AbsoluteLayout>
+      </ScrollView>
+    </StackLayout>
+    </GridLayout>
