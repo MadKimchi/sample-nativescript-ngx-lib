@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -8,6 +7,45 @@
   <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 </head>
 <body>
-
+  <div id="editor">
+  </div>
+<script>
+  function getNumber() {
+    window.nsWebViewBridge.emit("log", 'logging');
+    return 42;
+  }
+  var quill = new Quill('#editor', {
+    theme: 'snow',
+  });
+  var body = document.body,
+    html = document.documentElement;
+  var height = Math.max(body.scrollHeight, body.offsetHeight,
+    html.clientHeight, html.scrollHeight, html.offsetHeight);
+  document.location.href += "#" + height;
+  quill.on('selection-change', function (range, oldRange, source) {
+    if (range) {
+      if (range.length == 0) {
+        console.log('User cursor is on', range.index);
+      } else {
+        var text = quill.getText(range.index, range.length);
+        console.log('User has highlighted', text);
+      }
+    } else {
+      window.nsWebViewBridge.emit("gotMessage", { huba: "hop" });
+    }
+  });
+  quill.on('text-change', onTextChange);
+  function onTextChange(delta, oldDelta, source) {
+    console.log(delta);
+    const { ops } = delta;
+    // TODO: looping through the insert and then find $variable name and then insert the variable.
+    const hasVariableTrigger = ops.length === 1 && !!ops.find((op) => op.insert === '$');
+    window.nsWebViewBridge.emit("gotMessage", oldDelta);
+  }
+  function onSomethingChange() {
+    console.log('????');
+    window.nsWebViewBridge.emit("gotMessage", { huba: "hop" });
+  }
+</script>
 </body>
 </html>
