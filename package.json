@@ -9,7 +9,9 @@
     }
   },
   "scripts": {
-    "build:lib": "ng-packagr -p lib/package.json && cp README.md dist && cd dist/sample-lib && npm pack",
+    "build:lib":
+      "ng-packagr -p lib/package.json && cp README.md dist && cd dist/sample-lib && npm pack",
+    "build:pack": "cd lib && node build-package.ts",
     "ios": "tns run ios --bundle"
   },
   "description": "NativeScript Application",
@@ -30,14 +32,16 @@
     "rxjs": "^6.4.0",
     "tns-core-modules": "~6.2.0",
     "zone.js": "~0.9.1",
-    "sample-lib": "file:./lib/"
+    "sample-lib": "file:./lib/",
+    "@nota/nativescript-webview-ext": "^5.4.1"
   },
   "devDependencies": {
     "@angular/compiler-cli": "~8.2.0",
     "@ngtools/webpack": "~8.2.0",
     "nativescript-dev-webpack": "~1.3.0",
     "node-sass": "^4.13.0",
-    "typescript": "~3.5.3"
+    "typescript": "~3.5.3",
+    "tns-platform-declarations": "^6.2.0"
   },
   "gitHead": "a6fec076a20f898feabb4466a2c411158c18a100",
   "readme": "NativeScript Application"

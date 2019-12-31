@@ -5,6 +5,16 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "node",
+      "request": "launch",
+      "stopOnEntry": true,
+      "name": "Launch via NPM",
+      "sourceMaps": true,
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run-script", "build:pack"],
+      "port": 9229
+    },
+    {
       "name": "Launch on iOS",
       "type": "nativescript",
       "request": "launch",
@@ -23,9 +33,7 @@
       "watch": false,
       "stopOnEntry": true,
       "launchTests": true,
-      "tnsArgs": [
-        "--justlaunch"
-      ]
+      "tnsArgs": ["--justlaunch"]
     },
     {
       "name": "Attach on iOS",
@@ -55,9 +63,7 @@
       "watch": false,
       "stopOnEntry": true,
       "launchTests": true,
-      "tnsArgs": [
-        "--justlaunch"
-      ]
+      "tnsArgs": ["--justlaunch"]
     },
     {
       "name": "Attach on Android",
